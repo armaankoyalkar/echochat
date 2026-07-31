@@ -11,6 +11,7 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 import User from "./models/User.js";
 import { connectDB } from "./lib/db.js";
 import { clerkMiddleware } from "@clerk/express";
+import job from "./lib/cron.js";
 
 const app = express();
 const PORT = process.env.PORT;
