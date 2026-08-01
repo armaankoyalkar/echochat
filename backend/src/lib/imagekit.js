@@ -30,4 +30,4 @@ async function uploadChatMedia(file) {
   return result.url;
 }
 
-export { uploadChatMedia, hasImagekitConfig };
+export { hasImagekitConfig, uploadChatMedia };
