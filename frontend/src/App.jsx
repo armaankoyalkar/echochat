@@ -1,4 +1,3 @@
-import { WallpaperProvider } from "./context/WallpaperContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { Route, Routes, Navigate } from "react-router";
 import ChatPage from "./pages/ChatPage";
@@ -20,24 +19,20 @@ function App() {
   const isCheckingAuth = useAuthStore((state) => state.isCheckingAuth);
 
   useEffect(() => {
-    if(!isLoaded) return;
-
+    if (!isLoaded) return;
     if (isSignedIn) checkAuth();
-    
     else clearAuth();
-  },(clearAuth, checkAuth, isLoaded, isSignedIn ));
+  }, [clearAuth, checkAuth, isLoaded, isSignedIn]);
 
   if (!isLoaded || (isSignedIn && isCheckingAuth)) return <PageLoader />;
   
   return (
     <ThemeProvider>
-      <WallpaperProvider>
-        <Routes>
+      <Routes>
           <Route path="/" element={isSignedIn ? <ChatPage /> : <Navigate to={"/auth"} replace />} />
           <Route path="/auth" element={!isSignedIn ? <AuthPage /> : <Navigate to={"/"} replace />} />
-        </Routes>
-        <Toaster />
-      </WallpaperProvider>  
+      </Routes>
+      <Toaster />
     </ThemeProvider>
   );
 }
