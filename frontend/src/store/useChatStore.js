@@ -86,7 +86,7 @@ export const useChatStore = create(persist((set, get) => ({
     socket.on("newMessage", (newMessage) => {
       if (String(newMessage.senderId) !== String(userId)) return;
       set({ messages: [...get().messages, newMessage] });
-      get().getConversations();
+      useChatStore.getState().getConversations();
     });
   },
 
