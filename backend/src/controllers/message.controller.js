@@ -77,7 +77,7 @@ export async function sendMessage(req, res) {
     let videoUrl;
 
     if (req.file) {
-      if (!hasImageKitConfig()) {
+      if (!hasImagekitConfig()) {
         return res.status(500).json({ message: "Media upload is not configured" });
       }
 

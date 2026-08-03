@@ -34,7 +34,7 @@ function mapUserToConversation({ user, messages, authUser, onlineUsers }) {
       name: user.fullName,
       subtitle: user.email,
       isOnline: onlineUsers.includes(user._id),
-      avatarUrl: user.profilePic,
+      avatarUrl: user.profileImage,
       initials: getInitials(user.fullName),
     },
     messages: mappedMessages,

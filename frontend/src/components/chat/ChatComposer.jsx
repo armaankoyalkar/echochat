@@ -12,15 +12,12 @@ export function ChatComposer() {
   const setComposerText = useChatStore((state) => state.setComposerText);
   const { activeConversationId } = useSelectedConversation();
   const mediaInputRef = useRef(null);
-
   const handleSend = async () => {
-    const didSendMessage = await sendTextMessage(activeConversationId);
-    if (didSendMessage) playSoundIfEnabled();
+    await sendTextMessage(activeConversationId);
   };
 
   const handleComposerTextChange = (event) => {
     setComposerText(event.target.value);
-    playSoundIfEnabled();
   };
 
   const handleMediaPick = async (event) => {
@@ -28,12 +25,10 @@ export function ChatComposer() {
     event.target.value = "";
     if (!file) return;
 
-    const didSendMessage = await sendMediaMessage({
+    await sendMediaMessage({
       conversationId: activeConversationId,
       file,
     });
-
-    if (didSendMessage) playSoundIfEnabled();
   };
 
   return (
