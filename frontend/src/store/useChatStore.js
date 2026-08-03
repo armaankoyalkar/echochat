@@ -76,23 +76,14 @@ export const useChatStore = create(persist((set, get) => ({
     }
   },
 
-  subscribeToMessages: (userId) => {
-    if (!userId) return;
+  handleIncomingMessage: (newMessage) => {
+    const { activeConversationId, messages } = get();
 
-    const socket = useAuthStore.getState().socket;
-    if (!socket) return;
+    if (String(newMessage.senderId) === String(activeConversationId)) {
+      set({ messages: [...messages, newMessage] });
+    }
 
-    socket.off("newMessage");
-    socket.on("newMessage", (newMessage) => {
-      if (String(newMessage.senderId) !== String(userId)) return;
-      set({ messages: [...get().messages, newMessage] });
-      useChatStore.getState().getConversations();
-    });
-  },
-
-  unsubscribeFromMessages: () => {
-    const socket = useAuthStore.getState().socket;
-    socket?.off("newMessage");
+    get().getConversations();
   },
 
   setSelectedUser: (selectedUser) => set({ selectedUser }),
