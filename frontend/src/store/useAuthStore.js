@@ -19,19 +19,24 @@ export const useAuthStore = create((set, get) => ({
             console.error("Error checking auth:", error);
             set({ authUser: null });
         } finally {
-            set({ isCheckingAuth: false }); 
+            set({ isCheckingAuth: false });
         }
     },
     clearAuth: () => set({ authUser: null, isCheckingAuth: false, onlineUsers: [] }),
 
     connectSocket: (user) => {
         if (!user || get().socket?.connected) return;
-            
+
         const socket = io(BASE_URL, { query: { userId: user._id } });
-            
+
         set({ socket });
+
         socket.on("getOnlineUsers", (userIds) => {
             set({ onlineUsers: userIds });
+        });
+
+        socket.on("newMessage", (newMessage) => {
+            useChatStore.getState().handleIncomingMessage(newMessage);
         });
     },
 
