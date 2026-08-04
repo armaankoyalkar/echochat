@@ -25,7 +25,7 @@ function ChatPage() {
 
   return (
     <div className="flex h-full w-full flex-col overflow-hidden">
-      <div className="mx-auto flex w-full max-w-6xl flex-1 overflow-hidden rounded-2xl border border-border bg-background text-foreground">
+      <div className="mx-auto flex w-full flex-1 overflow-hidden bg-background text-foreground">
         <ChatSidebar />
 
         <div
